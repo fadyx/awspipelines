@@ -40,8 +40,24 @@ export class AWSpipelinesStack extends cdk.Stack {
           outputs: [cdkBuildOutput],
           project: new codebuild.PipelineProject(this, "CdkBuildProject", {
             environment: { buildImage: codebuild.LinuxBuildImage.STANDARD_7_0 },
-            buildSpec: codebuild.BuildSpec.fromSourceFilename("build-specs/buildspec.yml")
+            buildSpec: codebuild.BuildSpec.fromSourceFilename(
+              "build-specs/buildspec.yml"
+            ),
           }),
+        }),
+      ],
+    });
+
+    pipeline.addStage({
+      stageName: "PipelineUpdate",
+      actions: [
+        new pipelineActions.CloudFormationCreateUpdateStackAction({
+          actionName: "PipelineUpdate",
+          stackName: "AWSpipelinesStack",
+          templatePath: cdkBuildOutput.atPath(
+            "AWSpipelinesStack.template.json"
+          ),
+          adminPermissions: true,
         }),
       ],
     });
