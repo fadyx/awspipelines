@@ -8,7 +8,7 @@ export class AWSpipelinesStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const pipeline = new pipelines.Pipeline(this, "Pipeline", {
+    const pipeline = new pipelines.Pipeline(this, "MyPipeline", {
       pipelineName: "MyPipeline",
       crossAccountKeys: false,
     });
