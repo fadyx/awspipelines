@@ -39,7 +39,7 @@ export class AWSpipelinesStack extends cdk.Stack {
           actionName: "CdkBuildAction",
           outputs: [cdkBuildOutput],
           project: new codebuild.PipelineProject(this, "CdkBuildProject", {
-            environment: { buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_4 },
+            environment: { buildImage: codebuild.LinuxBuildImage.STANDARD_7_0 },
             buildSpec: codebuild.BuildSpec.fromSourceFilename("build-specs/buildspec.yml")
           }),
         }),
